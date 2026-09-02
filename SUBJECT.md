@@ -191,7 +191,7 @@ A default configuration file must be available in your Git repository.
 > ℹ️ The "42" pattern may be omitted in case the maze size does not allow it (i.e. too small).
 > Print an error message on the console in that case.
 
-*Figure — the two generation modes on the same grid: `PERFECT=True` forces a single winding
+*Figure — the two generation modes on the same grid: `PEtion during maze gRFECT=True` forces a single winding
 path (every other corridor is a dead-end), while the default `PERFECT=False` keeps at least two
 independent routes open so a chased player always has an alternative. The shortest path is
 highlighted in both. Legend: entry, exit, "42" pattern, shortest path.*
