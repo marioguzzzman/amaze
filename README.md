@@ -1,0 +1,2 @@
+# amaze
+python maze generator
