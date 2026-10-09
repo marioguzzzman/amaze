@@ -39,7 +39,7 @@ class ConfigError(MazeAppError):
 
 #Open and Parsing
 """
-Open File
+Open File, parse the config file and assign to variables
 """
 
 def open_file():
@@ -62,7 +62,8 @@ def open_file():
             sys.exit(1)
 
 
-def prepare_lines(lines):
+def prepare_lines(lines: list[str]) -> list[str]:
+    # Clean the lines, remove empty lines and comments
     clean_lines = []
     for line in lines:
         stripped = line.strip()
@@ -72,16 +73,13 @@ def prepare_lines(lines):
     return clean_lines
 
 
-def write_to_file():
-    # Create and write to input.txt
-    with open('output_maze.txt', 'w') as f:
-        f.write("name: shakshi\nage: 23\ncountry: India")
+def build_config(clean_lines: list[str]) -> dict:
+    config = {}
+    for line in clean_lines:
+        key, value = line.split("=")
+        config[key] = value
+    return config
 
-    # Read the file and create dictionary
-    with open('output_maze.txt', 'r') as file:
-        res = dict(line.strip().split(':', 1) for line in file)
-
-    print(res)
 
 
 #Menu
@@ -98,7 +96,7 @@ Choice? (1-4): _
 
 if __name__ == "__main__":
     f = open_file()
-    clean_lines= prepare_lines(f)
-    for each in clean_lines:
-        print(each)
-    write_to_file()
+    clean_lines = prepare_lines(f)
+    config = build_config(clean_lines)
+    print(config)
+
