@@ -81,6 +81,19 @@ def build_config(clean_lines: list[str]) -> dict:
     return config
 
 
+def clean_config(config: dict) -> dict:
+    cleaned_config = {}
+    for key, value in config.items():
+        if key in ["WIDTH", "HEIGHT", "SEED"]:
+            cleaned_config[key] = int(value)
+        elif key in ["ENTRY", "EXIT"]:
+            x_str, y_str = value.split(",")
+            cleaned_config[key] = (int(x_str), int(y_str))
+        elif key in ["OUTPUT_FILE"]:
+            cleaned_config[key] = str(value)
+        elif key in ["PERFECT"]:
+            cleaned_config[key] = value = "True"
+    return cleaned_config
 
 #Menu
 """
@@ -99,4 +112,5 @@ if __name__ == "__main__":
     clean_lines = prepare_lines(f)
     config = build_config(clean_lines)
     print(config)
-
+    cleam_conf = clean_config(config)
+    print(cleam_conf)
