@@ -1,3 +1,7 @@
+#! /usr/bin/env python3
+
+import sys
+
 """A-Maze-ing: entry point.
 
 Usage: python3 a_maze_ing.py config.txt
@@ -12,12 +16,6 @@ writes the hex output file, and runs the interactive terminal display.
 #   3. output file      -> hex grid + entry + exit + path
 #   4. display + menu   
 
-
-#Parsing
-"""
-Context managers — do you know Python's open("file.txt") as f
-"""
-
 #Error handling
 """
 Your program must handle all errors gracefully: invalid configuration, file not found, bad
@@ -31,6 +29,60 @@ The "42" pattern may be omitted in case the maze size does not allow it (i.e. to
       entry == exit, impossible dimensions
 """
 
+class MazeAppError(Exception):
+    def __init__(self, message: str = "Unknown Maze error") -> None:
+        super().__init__(message)
+
+class ConfigError(MazeAppError):
+    def __init__(self, message: str = "Unknown Config error") -> None:
+        super().__init__(message)
+
+#Open and Parsing
+"""
+Open File
+"""
+
+def open_file():
+    # Check arguments
+    if len(sys.argv) == 1:
+        print("No arguments provided!")
+        sys.exit(1)
+    if len(sys.argv) > 2:
+        print("Too many arguments provided!")
+        sys.exit(1)
+    # Read the file and process lines
+    else:
+        try:
+            with open(sys.argv[1]) as f:
+                print(f"Reading {sys.argv[1]}...")
+                lines = f.readlines()
+                return lines
+        except FileNotFoundError as e:
+            print(f"File {sys.argv[1]} not found!: {e}")
+            sys.exit(1)
+
+
+def prepare_lines(lines):
+    clean_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped == "" or stripped.startswith("#"):
+            continue
+        clean_lines.append(stripped)
+    return clean_lines
+
+
+def write_to_file():
+    # Create and write to input.txt
+    with open('output_maze.txt', 'w') as f:
+        f.write("name: shakshi\nage: 23\ncountry: India")
+
+    # Read the file and create dictionary
+    with open('output_maze.txt', 'r') as file:
+        res = dict(line.strip().split(':', 1) for line in file)
+
+    print(res)
+
 
 #Menu
 """
@@ -43,3 +95,10 @@ The "42" pattern may be omitted in case the maze size does not allow it (i.e. to
 4. Quit
 Choice? (1-4): _
 """
+
+if __name__ == "__main__":
+    f = open_file()
+    clean_lines= prepare_lines(f)
+    for each in clean_lines:
+        print(each)
+    write_to_file()
