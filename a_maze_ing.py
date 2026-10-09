@@ -92,7 +92,7 @@ def clean_config(config: dict) -> dict:
         elif key in ["OUTPUT_FILE"]:
             cleaned_config[key] = str(value)
         elif key in ["PERFECT"]:
-            cleaned_config[key] = value = "True"
+            cleaned_config[key] = value == "True"
     return cleaned_config
 
 #Menu
