@@ -42,7 +42,7 @@ class ConfigError(MazeAppError):
 Open File, parse the config file and assign to variables
 """
 
-def open_file():
+def open_file() -> str:
     # Check arguments
     if len(sys.argv) == 1:
         print("No arguments provided!")
